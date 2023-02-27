@@ -10,7 +10,8 @@ function get_merged_commit(){
    else
      mergecommit_pull_number=$(sed -n 's/.*Merge pull request \#\([0-9]\+\).*/\1/p' <<<$mergecommitlog)
      merged_commit=$(gh pr view $mergecommit_pull_number --json commits|jq '.commits[-1]|.oid ' -r)
+     merged_short_commit="$(git rev-parse --short $merged_commit)"
    fi
    
-   echo $merged_commit
+   echo $merged_short_commit
 }
