@@ -22,6 +22,7 @@ jobs:
 
       - name: make-release
         run: |
+
           set -x
           git log --oneline --merges --no-color -n1
           mergecommitlog="$(git log --oneline --merges --no-color -n1)"
