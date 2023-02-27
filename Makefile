@@ -27,3 +27,11 @@ push-registry: ## push the image to the registry
 	docker push $(IMAGE_TAG_COMMIT)
 	docker tag $(IMAGE_TAG_COMMIT) $(IMAGE_TAG_BRANCH)
 	docker push $(IMAGE_TAG_BRANCH)
+
+
+release: ## "retags an image created by the most recently merged pull request
+	source ./scripts/functions.sh
+	merged_commit=$$(get_merged_commit))
+	docker pull $(IMAGE_NAME):$$merged_commit
+	docker tag $(IMAGE_NAME):$$merged_commit $(IMAGE_NAME):$(VERSION)
+	ducher push $(IMAGE_NAME):$(VERSION)
