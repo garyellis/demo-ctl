@@ -22,6 +22,8 @@ jobs:
 
       - name: make-release
         run: |
+          . ./scripts/functions.sh
+          get_merged_commit
           make release
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
