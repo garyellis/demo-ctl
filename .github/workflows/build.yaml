@@ -1,0 +1,27 @@
+name: build container image
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build image
+    #runs-on: [ubuntu-20, size-m, amd64]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: make-registry-login
+        run: |
+          make registry-login
+
+      - name: make-build
+        run: |
+          make build
+
+      - name: make-push-registry
+        run: |
+           make push-registry
