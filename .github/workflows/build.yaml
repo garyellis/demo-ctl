@@ -21,6 +21,10 @@ jobs:
 
       - name: make-build
         run: |
+          echo "env: $GITHUB_SHA"
+
+          git rev-parse --short HEAD
+
           make build
 
       - name: make-push-registry
