@@ -31,6 +31,9 @@ jobs:
           mergecommitlog="$(git log --oneline --merges --no-color -n1)"
           awk '{print $1}' <<<$mergecommitlog
           mergecommit=$(awk '{print $1}' <<<$mergecommitlog)
+          mergecommit_pull_number=$(sed -n 's/.*Merge pull request \#\([0-9]\+\).*/\1/p' <<<$mergecommitlog)
+          gh pr view $mergecommit_pull_number --json commits|jq '.commits[-1]|.oid ' -r
+          merged_commit=$(gh pr view $mergecommit_pull_number --json commits|jq '.commits[-1]|.oid ' -r)
           set +x
         
         env:
