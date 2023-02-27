@@ -1,7 +1,11 @@
 
 # gets the latest commit in a merge commit
 function get_merged_commit(){
-   currentcommit=$(git rev-parse --short HEAD)
+   if [ ! -z "$GIT_SHORT_COMMIT" ]; then
+     currentcommit="$GIT_SHORT_COMMIT"
+   else
+     currentcommit=$(git rev-parse --short HEAD)
+   fi
    mergecommitlog="$(git log --oneline --merges --no-color -n1)"
    mergecommit=$(awk '{print $1}' <<<$mergecommitlog)
    if [ "$currentcommit" != "$mergecommit" ]; then
