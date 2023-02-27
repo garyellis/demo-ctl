@@ -23,6 +23,10 @@ jobs:
           make registry-login
 
       - name: make-release
+        permissions:
+          id-token: write
+          contents: read
+          pull-requests: write
         run: |
           set -x
           git --version
