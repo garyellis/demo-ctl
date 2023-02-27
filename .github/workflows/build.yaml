@@ -29,4 +29,5 @@ jobs:
 
       - name: make-push-registry
         run: |
+           export GIT_SHORT_COMMIT="echo ${{github.event.pull_request.head.sha }}| cut -c 1-7"
            make push-registry
