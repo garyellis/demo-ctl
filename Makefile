@@ -2,7 +2,7 @@ VERSION=v0.0.0
 REGISTRY?=quay.io
 NAME?=garyellis/container-build
 GIT_SHORT_COMMIT=$$(git rev-parse --short HEAD)
-GIT_BRANCH=$$(git branch --show-current)
+GIT_BRANCH=$$(git rev-parse --abbrev-ref HEAD)
 
 IMAGE_NAME=$(REGISTRY)/$(NAME)
 IMAGE_TAG_COMMIT=$(IMAGE_NAME):$(GIT_SHORT_COMMIT)
