@@ -28,17 +28,6 @@ jobs:
 
       - name: make-release
         run: |
-          set -x
-          git --version
-          git log --oneline
-          git log --oneline --merges --no-color -n1
-          mergecommitlog="$(git log --oneline --merges --no-color -n1)"
-          awk '{print $1}' <<<$mergecommitlog
-          mergecommit=$(awk '{print $1}' <<<$mergecommitlog)
-          mergecommit_pull_number=$(sed -n 's/.*Merge pull request \#\([0-9]\+\).*/\1/p' <<<$mergecommitlog)
-          gh pr view $mergecommit_pull_number --json commits|jq '.commits[-1]|.oid ' -r
-          merged_commit=$(gh pr view $mergecommit_pull_number --json commits|jq '.commits[-1]|.oid ' -r)
-          set +x
-        
+          make release
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
