@@ -21,10 +21,10 @@ jobs:
 
       - name: make-build
         run: |
-          echo "env: $GITHUB_SHA"
+          # GIT_SHA for pull request events is the last merge commit of the pull request merge branch.
+          # It is not the commit sha we're after. the head commit of the pull request is github.event.pull_request.head.sha
 
-          git rev-parse --short HEAD
-
+          export GIT_SHORT_COMMIT="echo ${{github.event.pull_request.head.sha }}| cut -c 1-7"
           make build
 
       - name: make-push-registry
