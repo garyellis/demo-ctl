@@ -1,0 +1,30 @@
+name: build container image
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+
+env:
+  REGISTRY_USERNAME: "${{ secrets.REGISTRY_USERNAME }}"
+  REGISTRY_PASSWORD: "${{ secrets.REGISTRY_PASSWORD }}"
+
+jobs:
+  build:
+    name: build image
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: make-registry-login
+        run: |
+          make registry-login
+
+      - name: make-build
+        run: |
+          make build
+
+      - name: make-push-registry
+        run: |
+           make push-registry

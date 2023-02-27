@@ -1,0 +1,27 @@
+name: publish container image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY_USERNAME: "${{ secrets.REGISTRY_USERNAME }}"
+  REGISTRY_PASSWORD: "${{ secrets.REGISTRY_PASSWORD }}"
+
+jobs:
+  push-image:
+    name: resolve image tag
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: make-registry-login
+        run: |
+          make registry-login
+
+      - name: make-release
+        run: |
+          make release
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
