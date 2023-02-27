@@ -5,12 +5,15 @@ on:
     branches-ignore:
       - main
   pull_request:
-  workflow_dispatch:
+
+env:
+  REGISTRY_USERNAME: "${{ secrets.REGISTRY_USERNAME }}"
+  REGISTRY_PASSWORD: "${{ secrets.REGISTRY_PASSWORD }}"
 
 jobs:
   build:
     name: build image
-    #runs-on: [ubuntu-20, size-m, amd64]
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
 

@@ -18,7 +18,7 @@ help: ## show this message
 
 
 registry-login: ## login to the container registry
-	docker login $(REGISTRY) -u $(REGISTRY_USERNAME) -p $(REGISTRY_PASSWORD) 
+	docker login $(REGISTRY) -u "$$REGISTRY_USERNAME" -p "$$REGISTRY_PASSWORD"
 
 build: ## build the binary
 	docker build --build-arg VERSION=$(VERSION) -t $(IMAGE_TAG_COMMIT) .
