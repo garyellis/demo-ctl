@@ -25,6 +25,8 @@ jobs:
           set -x
           git --version
           set -x
+          git log --oneline
+          gitloglog="$(git log --oneline)
           git log --oneline --merges --no-color -n1
           mergecommitlog="$(git log --oneline --merges --no-color -n1)"
           awk '{print $1}' <<<$mergecommitlog
