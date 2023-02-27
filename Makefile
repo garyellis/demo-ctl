@@ -21,12 +21,17 @@ registry-login: ## login to the container registry
 	docker login $(REGISTRY) -u "$$REGISTRY_USERNAME" -p "$$REGISTRY_PASSWORD"
 
 build: ## build the binary
+	docker pull  $(IMAGE_TAG_COMMIT) || \
 	docker build --build-arg VERSION=$(VERSION) -t $(IMAGE_TAG_COMMIT) .
 
 push-registry: ## push the image to the registry
-	docker push $(IMAGE_TAG_COMMIT)
-	docker tag $(IMAGE_TAG_COMMIT) $(IMAGE_TAG_BRANCH)
-	docker push $(IMAGE_TAG_BRANCH)
+	docker pull  $(IMAGE_TAG_COMMIT) || \(
+	  docker image inspect $(IMAGE_TAG_COMMIT) >/dev/null || \(
+	    docker push $(IMAGE_TAG_COMMIT)
+	    docker tag $(IMAGE_TAG_COMMIT) $(IMAGE_TAG_BRANCH)
+	    docker push $(IMAGE_TAG_BRANCH)
+	    \)
+	\)
 
 
 release: ## "retags an image created by the most recently merged pull request
