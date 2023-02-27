@@ -28,6 +28,8 @@ jobs:
 
       - name: make-release
         run: |
+          set -x
           make release
+          set +x
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
