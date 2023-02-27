@@ -13,6 +13,10 @@ jobs:
   push-image:
     name: resolve image tag
     runs-on: [ubuntu-latest]
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,10 +27,6 @@ jobs:
           make registry-login
 
       - name: make-release
-        permissions:
-          id-token: write
-          contents: read
-          pull-requests: write
         run: |
           set -x
           git --version
