@@ -22,11 +22,13 @@ jobs:
 
       - name: make-release
         run: |
+
+          set -x
           git log --oneline --merges --no-color -n1
           mergecommitlog="$(git log --oneline --merges --no-color -n1)"
           awk '{print $1}' <<<$mergecommitlog
           mergecommit=$(awk '{print $1}' <<<$mergecommitlog)
-
+          set +x
         
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
