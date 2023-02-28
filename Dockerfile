@@ -4,6 +4,7 @@ ARG VERSION
 
 WORKDIR /github.com/garyellis/demo-ctl
 
+
 COPY . /github.com/garyellis/demo-ctl
 
 RUN package=github.com/garyellis/demo-ctl/pkg/cmd VERSION=$VERSION && \
