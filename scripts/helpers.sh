@@ -1,6 +1,10 @@
+#!/usr/bin/env bash
 
-# gets the latest commit in a merge commit
+
 function get_merged_commit(){
+# gets the latest commit in a merge commit
+# depends on env variables: 
+
    if [ ! -z "$GIT_SHORT_COMMIT" ]; then
      currentcommit="$GIT_SHORT_COMMIT"
    else
@@ -20,7 +24,10 @@ function get_merged_commit(){
    echo $merged_short_commit
 }
 
-function release_from_merged_commit(){
+
+function release_image(){
+# pulls the image from the most recently merged pull request, tags and pushes it to the registry
+# depends on env variables: IMAGE_NAME, VERSION
 
     set -x
     merged_commit="$(get_merged_commit)"
@@ -29,6 +36,26 @@ function release_from_merged_commit(){
     docker tag $IMAGE_NAME:$merged_commit $IMAGE_NAME:$VERSION
     docker push $IMAGE_NAME:$VERSION
     set +x
+}
+
+function release_gh(){
+# creates a github release and generate notes after latest release
+# $1=tag to create
+# depends on env variables:
+
+    
+    gh_release_list="$(gh release list
+      --exclude-drafts \
+      --exclude-pre-releases \
+      --limit 100000 2>/dev/null)"
+    notes_start_tag="$(awk '$2 ~ /Latest/ {printf "--notes-start-tag %s", $1}' <<<$gh_release_list)"
+
+
+    echo gh release create $1 \
+      --title "Release $1" \
+      --latest \
+      --generate-notes \
+      $notes_start_tag
 }
 
 eval "$@"

@@ -28,10 +28,12 @@ jobs:
         run: |
           make registry-login
 
-      - name: make-release
+      - name: make release
         run: |
           set -x
-          make release
+          make release-image
+          make release-gh
           set +x
+           
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

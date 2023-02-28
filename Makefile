@@ -33,5 +33,8 @@ push-registry: ## push the image to the registry
 	docker tag $$IMAGE_TAG_COMMIT $$IMAGE_TAG_BRANCH
 	docker push $$IMAGE_TAG_BRANCH
 
-release: ## "retags an image created by the most recently merged pull request
-	. ./scripts/helpers.sh release_from_merged_commit
+release-image: ## retags an image created by the most recently merged pull request
+	./scripts/helpers.sh release_image
+
+release-gh: ## creates github release
+	./scripts/helpers.sh release_gh $$VERSION
