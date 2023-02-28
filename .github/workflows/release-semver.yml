@@ -1,3 +1,5 @@
+# publishes an image where the version is referenced in a file
+
 name: publish container image
 
 on:
