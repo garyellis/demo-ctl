@@ -10,22 +10,27 @@ inputs:
 outputs:
   actioncwd:
     description: "print the action cwd"
-    value: ${{ steps.actioncwd.outputs.printcwd }}
+    value: ${{ steps.printcwd.outputs.out }}
   actionenv:
     description: "print the environment"
-    value: ${{ steps.actionenv.outputs.printenv }}
+    value: ${{ steps.printenv.outputs.printenv }}
+
 runs:
   using: 'composite'
   steps:
-    - shell: bash
+    - name: printcwd
       id: printcwd
+      shell: bash
       run: |
-      echo "=====> printing directory info"
-      echo "$PWD"
-      find .
+        echo "=====> printing directory info"
+        echo "$PWD"
+        echo "out=$PWD" >> $GITHUB_OUTPUT
+      
 
-    - shell: bash
+    - name: printenv
       id: printenv
+      shell: bash
       run: |
-      echo "=====> printing env info"
-      env
+        echo "=====> printing env info"
+        env
+        echo "out=$(env)" >> $GITHUB_OUTPUT
