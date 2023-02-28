@@ -1,6 +1,6 @@
 SHELL := /usr/bin/env bash
 
-VERSION?=v0.0.3
+VERSION?=v0.0.4
 REGISTRY?=quay.io
 NAME?=garyellis/container-build
 GIT_SHORT_COMMIT?=$(shell git rev-parse --short HEAD)

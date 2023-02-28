@@ -51,7 +51,7 @@ function release_gh(){
     notes_start_tag="$(awk '$2 ~ /Latest/ {printf "--notes-start-tag %s", $1}' <<<$gh_release_list)"
 
 
-    echo gh release create $1 \
+    gh release create $1 \
       --title "Release $1" \
       --latest \
       --generate-notes \
