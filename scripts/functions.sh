@@ -1,6 +1,8 @@
 
 # gets the latest commit in a merge commit
 function get_merged_commit(){
+   echo "GIT_SHORT_COMMIT=$GIT_SHORT_COMMIT"
+
    if [ ! -z "$GIT_SHORT_COMMIT" ]; then
      currentcommit="$GIT_SHORT_COMMIT"
    else
@@ -24,10 +26,9 @@ function release_from_merged_commit(){
 
     set -x
     merged_commit="$(get_merged_commit)"
-    set +x
     echo $merged_commit
-#    docker pull $IMAGE_NAME:$merged_commit
-#    docker tag $IMAGE_NAME:$merged_commit $IMAGE_NAME:$VERSION
-#    docker push $IMAGE_NAME:$VERSION
-
+    docker pull $IMAGE_NAME:$merged_commit
+    docker tag $IMAGE_NAME:$merged_commit $IMAGE_NAME:$VERSION
+    docker push $IMAGE_NAME:$VERSION
+    set +x
 }
