@@ -1,8 +1,6 @@
 
 # gets the latest commit in a merge commit
 function get_merged_commit(){
-   echo "GIT_SHORT_COMMIT=$GIT_SHORT_COMMIT"
-
    if [ ! -z "$GIT_SHORT_COMMIT" ]; then
      currentcommit="$GIT_SHORT_COMMIT"
    else
