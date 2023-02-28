@@ -29,13 +29,11 @@ function release_image(){
 # pulls the image from the most recently merged pull request, tags and pushes it to the registry
 # depends on env variables: IMAGE_NAME, VERSION
 
-    set -x
     merged_commit="$(get_merged_commit)"
     echo $merged_commit
     docker pull $IMAGE_NAME:$merged_commit
     docker tag $IMAGE_NAME:$merged_commit $IMAGE_NAME:$VERSION
     docker push $IMAGE_NAME:$VERSION
-    set +x
 }
 
 function release_gh(){

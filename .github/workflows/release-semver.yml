@@ -12,8 +12,8 @@ env:
   REGISTRY_PASSWORD: "${{ secrets.REGISTRY_PASSWORD }}"
 
 jobs:
-  push-image:
-    name: resolve image tag
+  release-semver:
+    name: release-semver
     runs-on: [ubuntu-latest]
     permissions:
       id-token: write
@@ -32,10 +32,8 @@ jobs:
 
       - name: make release
         run: |
-          set -x
           make release-image
           make release-gh
-          set +x
            
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
