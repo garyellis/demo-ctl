@@ -1,0 +1,31 @@
+name: 'CI setup'
+description: installs make targets for semver single app repo.
+branding:
+  icon: 'layers'
+  color: 'gray-dark'
+inputs:
+  somevar:
+    description: 'The somevar input'
+    required: false
+outputs:
+  actioncwd:
+    description: "print the action cwd"
+    value: ${{ steps.actioncwd.outputs.printcwd }}
+  actionenv:
+    description: "print the environment"
+    value: ${{ steps.actionenv.outputs.printenv }}
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      id: printcwd
+      run: |
+      echo "=====> printing directory info"
+      echo "$PWD"
+      find .
+
+    - shell: bash
+      id: printenv
+      run: |
+      echo "=====> printing env info"
+      env
