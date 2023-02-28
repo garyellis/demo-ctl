@@ -30,3 +30,5 @@ function release_from_merged_commit(){
     docker push $IMAGE_NAME:$VERSION
     set +x
 }
+
+eval "$@"

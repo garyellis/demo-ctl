@@ -1,6 +1,6 @@
 SHELL := /usr/bin/env bash
 
-VERSION?=v0.0.2
+VERSION?=v0.0.3
 REGISTRY?=quay.io
 NAME?=garyellis/container-build
 GIT_SHORT_COMMIT?=$(shell git rev-parse --short HEAD)
@@ -34,4 +34,4 @@ push-registry: ## push the image to the registry
 	docker push $$IMAGE_TAG_BRANCH
 
 release: ## "retags an image created by the most recently merged pull request
-	. ./scripts/functions.sh && release_from_merged_commit
+	. ./scripts/helpers.sh release_from_merged_commit
