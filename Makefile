@@ -1,4 +1,6 @@
-VERSION=v0.0.0
+SHELL := /usr/bin/env bash
+
+VERSION=v0.0.1
 REGISTRY?=quay.io
 NAME?=garyellis/container-build
 GIT_SHORT_COMMIT?=$(shell git rev-parse --short HEAD)
@@ -7,6 +9,7 @@ GIT_BRANCH?=$(shell git rev-parse --abbrev-ref HEAD)
 IMAGE_NAME=$(REGISTRY)/$(NAME)
 IMAGE_TAG_COMMIT=$(IMAGE_NAME):$(GIT_SHORT_COMMIT)
 IMAGE_TAG_BRANCH=$(IMAGE_NAME):$(GIT_BRANCH)
+
 
 
 export VERSION REGISTRY GIT_SHORT_COMMIT GIT_BRANCH IMAGE_NAME IMAGE_TAG_COMMIT IMAGE_TAG_BRANCH
