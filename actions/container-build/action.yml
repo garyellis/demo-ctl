@@ -22,4 +22,5 @@ runs:
         export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
         make build
 
-        echo "image-tag-commit=$(make print-export IMAGE_TAG_COMMIT)" >> $GITHUB_OUTPUT
+        make print-exports FILTER=IMAGE_TAG_COMMIT
+        echo "image-tag-commit=$(make print-exports FILTER=IMAGE_TAG_COMMIT)" >> $GITHUB_OUTPUT
