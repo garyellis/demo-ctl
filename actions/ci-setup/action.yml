@@ -11,26 +11,13 @@ outputs:
   actioncwd:
     description: "print the action cwd"
     value: ${{ steps.printcwd.outputs.out }}
-  actionenv:
-    description: "print the environment"
-    value: ${{ steps.printenv.outputs.printenv }}
 
 runs:
   using: 'composite'
   steps:
     - name: printcwd
-      id: printcwd
+      id: init
       shell: bash
       run: |
-        echo "=====> printing directory info"
-        echo "$PWD"
-        echo "out=$PWD" >> $GITHUB_OUTPUT
-      
-
-    - name: printenv
-      id: printenv
-      shell: bash
-      run: |
-        echo "=====> printing env info"
-        env
-        echo "out=$(env)" >> $GITHUB_OUTPUT
+        echo "=====> setup action ci makefile"
+        cat version $GITHUB_ACTION_PATH/Makefile > Makefile
