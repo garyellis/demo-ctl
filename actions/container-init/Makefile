@@ -15,8 +15,10 @@ export VERSION REGISTRY GIT_SHORT_COMMIT GIT_BRANCH IMAGE_NAME IMAGE_TAG_COMMIT 
 	.DEFAULT_GOAL := help
 
 help: ## show this message
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+print-export: ## prints the input makefile context's environment variable
+	@echo $${!VAR_NAME}
 
 registry-login: ## login to the container registry
 	docker login $$REGISTRY -u "$$REGISTRY_USERNAME" -p "$$REGISTRY_PASSWORD"

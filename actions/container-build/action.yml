@@ -4,6 +4,11 @@ branding:
   icon: 'layers'
   color: 'gray-dark'
 
+outputs:
+  image-tag-commit:
+    description: "the image repository path with the the commit id as the tag."
+    value: ${{ steps.container-build.outputs.image-tag-commit }}
+
 runs:
   using: 'composite'
   steps:
@@ -16,3 +21,5 @@ runs:
         # It is not the commit sha we're after. the head commit of the pull request is github.event.pull_request.head.sha
         export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
         make build
+
+        echo image-tag-commit=$(make print-export IMAGE_TAG_COMMIT) >> $GITHUB_OUTPUT
