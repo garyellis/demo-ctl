@@ -13,5 +13,5 @@ runs:
       run: |
         echo "=====> setup action ci makefile"
         cat version $GITHUB_ACTION_PATH/Makefile > Makefile
-        sed -i 's@./helpers.sh@\$$GITHUB_ACTION_PATH/helpers.sh@g' Makefile
+        sed -i 's@./helpers.sh@\$$GITHUB_ACTION_PATH/../container-init/helpers.sh@g' Makefile
         make
