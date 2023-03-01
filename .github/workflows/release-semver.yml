@@ -26,6 +26,9 @@ jobs:
         with:
           fetch-depth: '2'
 
+      - name: action-container-init
+        uses: ./actions/container-init
+
       - name: make-registry-login
         run: |
           make registry-login
