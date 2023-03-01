@@ -30,10 +30,7 @@ jobs:
         run: |
           make registry-login
 
-      - name: make release
-        run: |
-          make release-image
-          make release-gh
-           
+      - name: action-container-release
+        uses: ./actions/container-release
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -1,0 +1,16 @@
+name: 'CI release'
+description: retags the most recently merged PR's container image with the version registry and creates a github release.
+branding:
+  icon: 'layers'
+  color: 'gray-dark'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: release
+      id: release
+      shell: bash
+      run: |
+        echo "====> make relese"
+        make release-image
+        make release-gh

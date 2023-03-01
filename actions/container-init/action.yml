@@ -1,0 +1,17 @@
+name: 'CI setup'
+description: installs make targets for semver single app repo.
+branding:
+  icon: 'layers'
+  color: 'gray-dark'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: setup
+      id: setup
+      shell: bash
+      run: |
+        echo "=====> setup action ci makefile"
+        cat version $GITHUB_ACTION_PATH/Makefile > Makefile
+        sed -i 's@./helpers.sh@\$$GITHUB_ACTION_PATH/helpers.sh@g' Makefile
+        make
