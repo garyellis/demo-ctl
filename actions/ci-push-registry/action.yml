@@ -1,0 +1,19 @@
+name: 'CI Build'
+description: publishes the container image to the dest registry
+branding:
+  icon: 'layers'
+  color: 'gray-dark'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: push-registry
+      id: push-registry
+      shell: bash
+      run: |
+        echo "====> make push-registry"
+        echo "debug GITHUB_EVENT_PULL_REQUEST_HEAD_SHA=$GITHUB_EVENT_PULL_REQUEST_HEAD_SHA"
+
+        export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
+        export GIT_BRANCH="${{ github.event.pull_request.head.ref }}"
+        make push-registry

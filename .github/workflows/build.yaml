@@ -22,8 +22,12 @@ jobs:
         run: |
           make registry-login
 
-      - name: local-action-ci-build
+      - name: local-action-build
         uses: ./actions/ci-build
+
+      - name: local-action-push-registry
+        uses: ./actions/ci-push-registry
+
 
 #      - name: make-build
 #        run: |
@@ -33,8 +37,8 @@ jobs:
 #          export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
 #          make build
 
-      - name: make-push-registry
-        run: |
-           export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
-           export GIT_BRANCH="${{ github.event.pull_request.head.ref }}"
-           make push-registry
+#      - name: make-push-registry
+#        run: |
+#           export GIT_SHORT_COMMIT="$(echo ${{ github.event.pull_request.head.sha }}| cut -c 1-7)"
+#           export GIT_BRANCH="${{ github.event.pull_request.head.ref }}"
+#           make push-registry
