@@ -3,21 +3,14 @@ description: installs make targets for semver single app repo.
 branding:
   icon: 'layers'
   color: 'gray-dark'
-inputs:
-  somevar:
-    description: 'The somevar input'
-    required: false
-outputs:
-  actioncwd:
-    description: "print the action cwd"
-    value: ${{ steps.printcwd.outputs.out }}
 
 runs:
   using: 'composite'
   steps:
-    - name: printcwd
-      id: init
+    - name: setup
+      id: setup
       shell: bash
       run: |
         echo "=====> setup action ci makefile"
         cat version $GITHUB_ACTION_PATH/Makefile > Makefile
+        make
