@@ -24,7 +24,12 @@ jobs:
           make registry-login
 
       - name: action-container-build
+        id: action-container-build
         uses: ./actions/container-build
+
+      - name: print output from last step
+        run: |
+          echo "${{ steps.action-container-build.outputs.image-tag-commit }}"
 
       - name: action-container-push-registry
         uses: ./actions/container-push-registry

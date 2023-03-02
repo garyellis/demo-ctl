@@ -1,4 +1,4 @@
-name: 'CI setup'
+name: 'container-init'
 description: installs make targets for semver single app repo.
 branding:
   icon: 'layers'
