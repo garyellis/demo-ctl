@@ -1,0 +1,35 @@
+name: build container image
+
+on:
+  push:
+
+
+jobs:
+  init:
+    name: setup-matrix
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '2'
+
+  demo:
+    name: matrix-run
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        charts: [
+          { projectid: "myproject", pipelineid: "myapp1helm", serviceid: "myservice1id", version: "v1.2.3" },
+          { projectid: "myproject", pipelineid: "myapp2helm", serviceid: "myservice2id", version: "v0.1.0" },
+          { projectid: "myproject", pipelineid: "myapp3helm", serviceid: "myservice3id", version: "v1.0.1" },
+        ]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '2'
+      - run: "echo PROJECT_ID: $PROJECT_ID, PIPELINE_ID: $PIPELINE_ID, SERVICE_ID: $SERVICE_ID, VERSION: $VERSION"
+        env:
+          PROJECT_ID: ${{ matrix.charts.projectid }}
+          PIPELINE_ID: ${{ matrix.charts.pipelineid }}
+          SERVICE_ID: ${{ matrix.charts.serviceid }}
+          VERSION: ${{ matrix.charts.version }}
